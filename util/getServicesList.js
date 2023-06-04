@@ -1,7 +1,8 @@
 const fs = require("fs");
 const axios = require("axios");
+let first = true;
 module.exports = async (ip) => {
-    let servers = [];
+    let servers = {};
     try {
         const ret = (await axios.get('http://squad.tzyjs.cn/api/service/remote_services?apikey=30309a9551954c34abbd19569818ab70')).data;
         if (ret.status !== 200) return;
@@ -9,8 +10,11 @@ module.exports = async (ip) => {
         // 获取白名单IP列表
         const list = fs.readFileSync('./list.txt', 'utf-8').toString();
 
-        console.log('[ 白名单 ]\n' + list);
-
+        if (first) {
+            console.log('[ 白名单 ]\n' + list);
+            first = false
+        }
+        
         for (const daemon of ret.data) {
             if (ip && daemon.ip !== ip) continue; // 过滤命令行指定IP
             if (list && list.indexOf(daemon.ip) === -1) continue; // 过滤白名单主机
@@ -19,7 +23,7 @@ module.exports = async (ip) => {
             for (const server of daemon.instances) {
                 if (server.config.type !== 'steam/squad') continue; // 过滤非 SQUAD 实例
                 if (!server.config.squadConfig?.virtualPlayer) continue; // 过滤旧版本守护进程
-                servers.push({
+                servers[server.instanceUuid] = {
                     ip: daemon.ip,
                     gid: daemon.uuid,
                     uid: server.instanceUuid,
@@ -29,7 +33,7 @@ module.exports = async (ip) => {
                     auto: server.config.squadConfig.virtualPlayer.auto,
                     player: server.config.squadConfig.virtualPlayer.player,
                     queue: server.config.squadConfig.virtualPlayer.queue
-                });
+                }
             }
         }
 

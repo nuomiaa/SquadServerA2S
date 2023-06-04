@@ -1,6 +1,4 @@
 const { Worker } = require('worker_threads');
-const arguments = process.argv;
-const oldServers = {};
 const servers = {};
 let mainInterval = null;
 console.clear();

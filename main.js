@@ -30,7 +30,7 @@ args.forEach(arg => {
 const ip = params['LOCALIP'] || '127.0.0.1';
 const port = params['QUERYPORT'] || 50001;
 let state = Boolean(params['VP']) || false;
-if (params['DIR']) filePath = params['DIR'] + '/SquadGame/ServerConfig/Logs/a2s.json';
+if (params['DIR']) filePath = params['DIR'] + '/a2s.json';
 
 let A2SConfig = {
     block: false,

@@ -19,7 +19,7 @@ const playerList = [];
 const nicknames = readNicknames();
 const libqqwry = require('lib-qqwry');
 const qqwry = libqqwry(true, './qqwry.dat');
-const filePath = '/home/container/a2s.json';
+let filePath = '/home/container/a2s.json';
 // const filePath = 'D:/NodeJS/SquadServerA2S_Test/a2s.json';
 
 args.forEach(arg => {
@@ -30,6 +30,7 @@ args.forEach(arg => {
 const ip = params['LOCALIP'] || '127.0.0.1';
 const port = params['QUERYPORT'] || 50001;
 let state = Boolean(params['VP']) || false;
+if (params['DIR']) filePath = params['DIR'] + '/a2s.json';
 
 let A2SConfig = {
     block: false,

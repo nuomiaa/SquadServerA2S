@@ -217,8 +217,8 @@ server.on("listening", async () => {
 });
 
 // 错误处理
-process.on('unhandledRejection', (error) => tools.writeErrorLog('未处理的拒绝', error));
-process.on('uncaughtException', (error) => tools.writeErrorLog('未捕获的异常', error));
+process.on('unhandledRejection', (error) => console.error('未处理的拒绝', error));
+process.on('uncaughtException', (error) => console.error('未捕获的异常', error));
 
 // 创建服务端口
 server.bind(Number(port) + 30000);

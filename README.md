@@ -1,6 +1,9 @@
 # SquadServerA2S
 
-用于 Steam Squad Server 的 A2S 服务器
+用于 Steam Squad Server 的 A2S 服务
+
+## 附言（2024/10/12 00:23）
+该项目至此已归档保存，不再维护。
 
 ## 安装
 ```shell
